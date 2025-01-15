@@ -62,7 +62,6 @@ def process_image(image_path):
 
 	image = cv2.imread(image_path)
 	filtered_image = apply_filters(image)
-
 	binary_fixed = fixed_threshold(filtered_image)
 	binary_otsu = otsu_threshold(filtered_image)
 	#binary_active = active_contours_segmentation(filtered_image)
@@ -72,11 +71,14 @@ def process_image(image_path):
 	ax[0, 0].imshow(cv2.cvtColor(image, cv2.COLOR_BGR2RGB))
 	ax[0, 0].set_title('Original Image')
 
-	ax[1, 1].imshow(binary_fixed, cmap='gray')
-	ax[1, 1].set_title('Fixed Threshold')
+	ax[0, 1].imshow(filtered_image, cmap='gray')
+	ax[0, 1].set_title('Filtered Image')
 
-	ax[1, 0].imshow(binary_otsu, cmap='gray')
-	ax[1, 0].set_title('OTSU Threshold')
+	ax[1, 0].imshow(binary_fixed, cmap='gray')
+	ax[1, 0].set_title('Fixed Threshold')
+
+	ax[1, 1].imshow(binary_otsu, cmap='gray')
+	ax[1, 1].set_title('OTSU Threshold')
 
 	#ax[1, 1].imshow(binary_active, cmap='gray')
 	#ax[1, 1].set_title('Active Contours')
@@ -89,13 +91,14 @@ def process_image(image_path):
 	cv2.imwrite(f'output/{base_name}_otsu.jpg', binary_otsu)
 	#cv2.imwrite(f'output/{base_name}_active.jpg', binary_active)
 
-#process_image('images/00.jpg')			#SINGLE IMAGE PROCESSING
+process_image('images/00.jpg')			#SINGLE IMAGE PROCESSING
 
 #PROCESSING ALL IMAGES IN FOLDER
 
+'''
 for filename in os.listdir('images'):
 	if filename.endswith('.jpg'):
 		process_image(os.path.join('images', filename))
 		#cv2.waitKey(0)
 		#cv2.destroyAllWindows()
-print("All images processed :)")
+print("All images processed :)")'''
